@@ -7,7 +7,7 @@ const Discord = require('discord.js')
 const bot = new Discord.Client();
 
 // Token for your bot, located in the Discord application console - https://discordapp.com/developers/applications/me/
-const token = 'NTQyMjMzMzQxODg2MzMyOTQ4.DzrQ7Q.h9yyvGopHmSXRod9BeJXbO196fY'
+const token = process.env.token;
 
 console.log("Discord.js Ready!");
 
