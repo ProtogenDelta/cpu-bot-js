@@ -44,10 +44,6 @@ bot.on('message', message => {
     if (message.content.startsWith(".howsmart")) {
         message.channel.send("```"+message.author.username+" is "+(Math.floor(Math.random()*100)) +"% smart.```")
     }
-    
-    if (message.content === ”.roll6") {
-        message.channel.send(" ```"+math.floor(math.random()*6)+"```")
-    }
 });
   
 
