@@ -10,7 +10,7 @@ const bot = new Discord.Client();
 const token = process.env.token;
 
 //Prefix for your bot, Can be changed to anything.
-const cmdprefix = ">";
+const cmdprefix = "<";
 
 console.log("Discord.js Ready!");
 
@@ -27,8 +27,7 @@ bot.on('message', message => {
     var cmd = message.content.substr(1).trim();
      
     if (cmd === "help") {
-        message.channel.send("``` Help \n Prefix is"+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. /n Ping - Determine the bot response time. ```");
-        
+        message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. /n Ping - Determine the bot response time. ```")  
      }
     
     if (cmd === "ping") {
