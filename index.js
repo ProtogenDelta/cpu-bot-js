@@ -57,7 +57,7 @@ bot.on('message', message => {
         message.channel.send("```"+name+" is "+(Math.floor(Math.random()*100)) +"% smart.```");
     }
     
-    if (cmd.startsWith("say")) {
+    if (cmd.startsWith("say ")) {
         var tosay = cmd.substr(4);
         message.channel.send("```"+tosay+"```");
     }
