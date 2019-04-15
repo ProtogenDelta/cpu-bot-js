@@ -55,13 +55,6 @@ bot.on('message', message => {
         var name = parts.length > 1 ? parts[1] : message.author.username;
         message.channel.send("```"+name+" is "+(Math.floor(Math.random()*100)) +"% smart.```");
     }
-    
-    if (cmd === "time") {
-        var tstamp = (message.createdAt).split(" ")
-        tstamp.length = 5;
-        var truetime = tstamp.join(" ");
-        message.channel.send("```The time is "+truetime+".```");
-    }
 });
   
 
