@@ -17,6 +17,7 @@ console.log("Discord.js Ready!");
 // Gets called when our bot is successfully logged in and connected
 bot.on('ready', () => {
     console.log('Connected To Discord!');
+    client.user.setActivity("a blinking cursor.","WATCHING")
 });
 
 // Event to listen to messages sent to the server where the bot is located
