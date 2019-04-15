@@ -56,6 +56,11 @@ bot.on('message', message => {
         var name = parts.length > 1 ? (message.mentions.users.first()).username : message.author.username;
         message.channel.send("```"+name+" is "+(Math.floor(Math.random()*100)) +"% smart.```");
     }
+    
+    if (cmd.startsWith("say")) {
+        var tosay = cmd.substr(4);
+        message.channel.send("```"+tosay+"```");
+    }
 });
   
 
