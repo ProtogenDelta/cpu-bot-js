@@ -52,8 +52,7 @@ bot.on('message', message => {
 
     if (cmd.startsWith("howsmart")) {
         var parts = cmd.split(" ");
-        var name = parts.length > 1 ? parts[1] : message.author.username;
-        if (!name == message.author.username) {name = message.mentions.users.first()}
+        var name = parts.length > 1 ? (message.mentions.users.first).username : message.author.username;
         message.channel.send("```"+name+" is "+(Math.floor(Math.random()*100)) +"% smart.```");
     }
 });
