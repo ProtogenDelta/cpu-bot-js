@@ -57,7 +57,7 @@ bot.on('message', message => {
     }
     
     if (cmd === "time") {
-        message.channel.send("```The time is "+message.createdTimestamp+".```");
+        message.channel.send("```The time is "+message.createdAt+".```");
     }
 });
   
