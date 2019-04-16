@@ -37,7 +37,7 @@ stdin.addListener("data", function(d) {
         bot.channels.get("567601788614868992").send(incoming)
         bot.channels.get("567547154005098499").send(incoming)
     }
-    console.log("\n")
+    console.log("")
 });
 
 // Event to listen to messages sent to the server where the bot is located
