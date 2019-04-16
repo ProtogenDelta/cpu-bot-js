@@ -21,7 +21,7 @@ stdin.addListener("data", function(d) {
     // end with a linefeed.  so we (rather crudely) account for that  
     // with toString() and then trim() 
     console.log("you entered: [" + d.toString().trim() + "]");
-    bot.channels.get(567547154005098499).send(d.toString().trim())
+    bot.channels.get("567547154005098499").send(d.toString().trim())
   });
 console.log("stdin ready!")
 
