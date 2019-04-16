@@ -67,7 +67,7 @@ bot.on('message', message => {
     }
 
     if (cmd.startsWith("poll")) {
-        if (cmd.length > 5) {
+        if (cmd.length > 5 && cmd.charAt(5) == " ") {
             var q = cmd.substr(5)
             
         }else{
