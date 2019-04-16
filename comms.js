@@ -20,7 +20,7 @@ console.log("Discord.js Ready!");
 // Gets called when our bot is successfully logged in and connected
 bot.on('ready', () => {
     console.log('Connected To Discord!');
-    bot.user.setActivity("a blinking cursor.",{type : "WATCHING"})
+    console.log('\nCHANNEL CODES\n1:GGN #cpu-bot-chat\n2:Test Server #cli-chat\n');
 });
 
 stdin.addListener("data", function(d) {
@@ -29,12 +29,13 @@ stdin.addListener("data", function(d) {
     // with toString() and then trim() 
     var incoming = d.toString().trim()
     
-    if (incoming.startsWith("bt ")) {
-    bot.channels.get("567547154005098499").send(incoming.substr(3))
-    }
-    
-    if (incoming.startsWith("ggn ")) {
-    bot.channels.get("567601788614868992").send(incoming.substr(4))
+    if (incoming.startsWith("1:")) {
+        bot.channels.get("567601788614868992").send(incoming.substr(2))
+    } else if (incoming.startsWith("2:")) {
+        bot.channels.get("567547154005098499").send(incoming.substr(2))
+    } else {
+        bot.channels.get("567601788614868992").send(incoming)
+        bot.channels.get("567547154005098499").send(incoming)
     }
 });
 
