@@ -31,11 +31,11 @@ bot.on('message', message => {
     if (!message.content.startsWith(cmdprefix)) return;
     var cmd = message.content.substr(1).trim();
      
-    if (cmd === "help") {
-        message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. \n Ping - Determine the bot response time. \n Say - Says anything you want!```")  
+    if (cmd === "help") { //help command.
+        message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. \n Ping - Determine the bot response time. \n Say - Says anything you want! \n Poll - Opens a reactions poll.```")  
      }
     
-    if (cmd === "ping") {
+    if (cmd === "ping") { //ping command. get the bot response time in ms
         message.channel.send("```Pong! The bot's ping time is "+Math.round(bot.ping)+"ms.```");
     }
     
@@ -43,19 +43,19 @@ bot.on('message', message => {
         message.channel.send("```Hello!```");
     }
     
-    if (cmd === "8ball") { 
+    if (cmd === "8ball") { //8-ball command. Self explanatory.
         var items = Array("Yes","No","Maybe","Definitely","Probably","Probably Not","Try Again");
         var item = items[Math.floor(Math.random() * items.length)];
         message.channel.send("```"+item+"```");
     }
 
-    if (cmd === "flip") {
+    if (cmd === "flip") {//Coin flip command. returns "Heads" or "Tails"
         var headstails = ["Heads","Tails"];
         var ht = headstails[Math.floor(Math.random() * headstails.length)];
         message.channel.send("```"+ht+"```");
     }
 
-    if (cmd.startsWith("howsmart")) {
+    if (cmd.startsWith("howsmart")) { //howsmart command. randomly generates a number up to 100. mention a user to show their score.
         var parts = cmd.split(" ");
         var name = parts.length > 1 ? (message.mentions.users.first()).username : message.author.username;
         message.channel.send("```"+name+" is "+(Math.floor(Math.random()*100)) +"% smart.```");
@@ -66,7 +66,7 @@ bot.on('message', message => {
         message.channel.send("```"+tosay+"```");
     }
 
-    if (cmd.startsWith("poll")) {
+    if (cmd.startsWith("poll")) { //Poll Command, Returns an open reaction poll.
         if (cmd.length > 5 && cmd.charAt(5) == " ") {
             var q = cmd.substr(5)
             var runccmd = 1
@@ -77,7 +77,11 @@ bot.on('message', message => {
             var q = "Please submit a vote."
             var runcmd = 1
         }
-        runcmd ? message.channel.send("```"+q+"```").then(sentMessage => thumbs(sentMessage)) : return
+        if (runcmd) {
+        message.channel.send("```"+q+"```").then(sentMessage => thumbs(sentMessage))
+        }else{
+        //do nothing
+        }
     }
 });
   
