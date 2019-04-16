@@ -61,6 +61,16 @@ bot.on('message', message => {
         var tosay = cmd.substr(4);
         message.channel.send("```"+tosay+"```");
     }
+
+    if (cmd.startsWith("poll")) {
+        if (cmd.length > 5) {
+            var q = cmd.substr(5)
+            
+        }else{
+            var q = "Please submit a vote."
+        }
+        message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("👍"); sentMessage.react("👎")
+    }
 });
   
 
