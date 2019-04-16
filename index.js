@@ -30,7 +30,7 @@ bot.on('message', message => {
     if (message.author.bot) return;
     if (!message.content.startsWith(cmdprefix)) return;
     var cmd = message.content.substr(1).trim();
-    console.log("@"+message.author.username+" in #"+message.channel.name+": "+message.content+" ["+Math.round(bot.ping)+"ms]")
+    console.log("@"+message.author.username+" in #"+message.channel.name+": "+cmd+" ["+Math.round(bot.ping)+"ms]")
     
     
     if (cmd === "help") { //help command
