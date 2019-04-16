@@ -1,5 +1,8 @@
 console.log("Loading...");
 
+var stdin = process.openStdin();
+console.log("Console Ready!");
+
 // Import the discord.js module
 const Discord = require('discord.js');
 
