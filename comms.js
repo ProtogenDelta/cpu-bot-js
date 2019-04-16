@@ -37,7 +37,7 @@ bot.on('message', message => {
     if (message.author.bot) return;
     
     if (message.content.startsWith(">")) {
-        console.log("@"+message.author.username+" in #"+message.channel.id+": "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
+        console.log("@"+message.author.username+" in #"+message.channel.name+":\n "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
     }
     
     if (!message.content.startsWith(cmdprefix)) return;
