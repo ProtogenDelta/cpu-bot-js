@@ -59,7 +59,7 @@ bot.on('message', message => {
         message.channel.send("```Hello!```");
     }
     
-    if (cmd === "8ball") { //8-ball command. Self explanatory.
+    if (cmd.startsWith("8ball")) { //8-ball command. Self explanatory.
         var items = Array("Yes","No","Maybe","Definitely","Probably","Probably Not","Try Again");
         var item = items[Math.floor(Math.random() * items.length)];
         message.channel.send("```"+item+"```");
