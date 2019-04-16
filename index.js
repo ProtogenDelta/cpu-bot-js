@@ -69,15 +69,15 @@ bot.on('message', message => {
     if (cmd.startsWith("poll")) {
         if (cmd.length > 5 && cmd.charAt(5) == " ") {
             var q = cmd.substr(5)
-            var do = 1
+            var runccmd = 1
         }else if(cmd.length > 5 && !cmd.charAt(5) == " ") {
             message.channel.send("```Invalid Syntax, "+message.author.username+".```")
-            var do = 0
+            var runcmd = 0
         }else{
             var q = "Please submit a vote."
-            var do = 1
+            var runcmd = 1
         }
-        do ? message.channel.send("```"+q+"```").then(sentMessage => thumbs(sentMessage)) : return
+        runcmd ? message.channel.send("```"+q+"```").then(sentMessage => thumbs(sentMessage)) : return
     }
 });
   
