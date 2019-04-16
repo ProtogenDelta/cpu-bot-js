@@ -1,6 +1,4 @@
-const indexjs = require('index.js');
-
-const Discord = new indexjs.Discord();
+const Discord = require('Discord.js');
 
 const bot = new Discord.Client();
 
