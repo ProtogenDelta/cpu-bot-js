@@ -20,6 +20,10 @@ bot.on('ready', () => {
     bot.user.setActivity("a blinking cursor.",{type : "WATCHING"})
 });
 
+function thumbs(msgIn) {
+    msgIn.react("👍").then(() => msgIn.react("👎"))
+}
+
 // Event to listen to messages sent to the server where the bot is located
 bot.on('message', message => {
     // So the bot doesn't reply to iteself
@@ -69,7 +73,7 @@ bot.on('message', message => {
         }else{
             var q = "Please submit a vote."
         }
-        message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("👍"))
+        message.channel.send("```"+q+"```").then(sentMessage => thumbs(sentMessage))
     }
 });
   
