@@ -28,10 +28,12 @@ function thumbs(msgIn) {
 bot.on('message', message => {
     // So the bot doesn't reply to iteself
     if (message.author.bot) return;
-    if (!message.content.startsWith(cmdprefix)) return;
+    if (!message.content.startsWith(cmdprefix) || !message.content.startswith(">") return;
     var cmd = message.content.substr(1).trim();
-    console.log("@"+message.author.username+" in #"+message.channel.name+": "+cmd+" ["+Math.round(bot.ping)+"ms]")
     
+    if (message.content.startsWith(">") {
+        console.log("@"+message.author.username+" in #"+message.channel.name+": "+cmd+" ["+Math.round(bot.ping)+"ms]")
+    }
     
     if (cmd === "help") { //help command
         message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. \n Ping - Determine the bot response time. \n Say - Says anything you want! \n Poll - Opens a reactions poll.```")  
