@@ -28,7 +28,7 @@ function thumbs(msgIn) {
 bot.on('message', message => {
     // So the bot doesn't reply to iteself
     if (message.author.bot) return;
-    if (!message.content.startsWith(cmdprefix) || !message.content.startswith(">")) return;
+    if (!message.content.startsWith(cmdprefix) || !message.content.startsWith(">")) return;
     var cmd = message.content.substr(1).trim();
     
     if (message.content.startsWith(">")) {
