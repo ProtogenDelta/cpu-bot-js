@@ -85,7 +85,7 @@ bot.on('message', message => {
     }
 
     if (cmd.startsWith("poll")) { //Poll Command, Returns an open reaction poll.
-        if (cmd.length > 5 && cmd.charAt(5) == " ") {
+        if (cmd.startsWith("poll ")) {
             q = cmd.substr(5)
             runcmd = 1
         } else {
