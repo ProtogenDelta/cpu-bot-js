@@ -13,7 +13,7 @@ const bot = new Discord.Client();
 const token = process.env.token;
 
 //Prefix for your bot, Can be changed to anything.
-const cmdprefix = "<";
+const cmdprefix = "\\";
 
 console.log("Discord.js Ready!");
 
@@ -27,8 +27,15 @@ stdin.addListener("data", function(d) {
     // note:  d is an object, and when converted to a string it will
     // end with a linefeed.  so we (rather crudely) account for that  
     // with toString() and then trim() 
-    bot.channels.get("567547154005098499").send(d.toString().trim())
-    bot.channels.get("567601788614868992").send(d.toString().trim())
+    var incoming = d.toString().trim()
+    
+    if (incoming.startsWith("bt ")) {
+    bot.channels.get("567547154005098499").send(incoming.substr(3))
+    }
+    
+    if (incoming.startsWith("ggn ")) {
+    bot.channels.get("567601788614868992").send(incoming.substr(4))
+    }
 });
 
 // Event to listen to messages sent to the server where the bot is located
@@ -36,7 +43,7 @@ bot.on('message', message => {
     // So the bot doesn't reply to iteself
     if (message.author.bot) return;
     
-    if (message.content.startsWith(">")) {
+    if (message.content.startsWith(";")) {
         console.log("@"+message.author.username+" in #"+message.channel.name+":\n "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
     }
     
