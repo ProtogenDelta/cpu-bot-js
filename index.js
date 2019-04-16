@@ -83,6 +83,12 @@ bot.on('message', message => {
         //do nothing
         }
     }
+
+    if (cmd.startsWith("setactivity" && cmd.charAt(12) == " ") {
+        var actype = cmd.substr(12).split(" ")[0]
+        var accontent = cmd.substr(12) - actype
+        bot.user.setActivity(accontent, {type : actype})
+    }
 });
   
 
