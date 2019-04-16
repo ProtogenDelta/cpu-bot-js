@@ -69,7 +69,7 @@ bot.on('message', message => {
         }else{
             var q = "Please submit a vote."
         }
-        message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("👍"); sentMessage.react("👎"))
+        message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("👍"))
     }
 });
   
