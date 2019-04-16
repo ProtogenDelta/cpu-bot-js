@@ -29,4 +29,4 @@ bot.on('message', message => {
     if (message.content.startsWith(">")) {
         console.log("@"+message.author.username+" in #"+message.channel.name+": "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
     }
-}
+})
