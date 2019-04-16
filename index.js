@@ -37,6 +37,8 @@ function thumbs(msgIn) {
 
 // Event to listen to messages sent to the server where the bot is located
 bot.on('message', message => {
+    var q
+    var runcmd
     // So the bot doesn't reply to iteself
     if (message.author.bot) return;
     
@@ -84,11 +86,11 @@ bot.on('message', message => {
 
     if (cmd.startsWith("poll")) { //Poll Command, Returns an open reaction poll.
         if (cmd.length > 5 && cmd.charAt(5) == " ") {
-            var q = cmd.substr(5)
-            var runcmd = 1
+            q = cmd.substr(5)
+            runcmd = 1
         } else {
-            var q = "Please submit a vote."
-            var runcmd = 1
+            q = "Please submit a vote."
+            runcmd = 1
         }
         if (runcmd) {
         message.channel.send("```"+q+"```").then(sentMessage => thumbs(sentMessage))
