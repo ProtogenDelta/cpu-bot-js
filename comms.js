@@ -41,8 +41,8 @@ bot.on('message', message => {
     }
     
     if (!message.content.startsWith(cmdprefix)) return;
+    
     var cmd = message.content.substr(1).trim();
-    }
 });
   
 
