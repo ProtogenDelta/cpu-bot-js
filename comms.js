@@ -1,17 +1,26 @@
-const Discord = require('discord.js');
-
-const bot = new Discord.Client();
-
-const token = process.env.token;
+console.log("Loading...");
 
 var stdin = process.openStdin();
 console.log("Console Ready!");
+
+// Import the discord.js module
+const Discord = require('discord.js');
+
+// Create an instance of Discord that we will use to control the bot
+const bot = new Discord.Client();
+
+// Token for your bot, located in the Discord application console - https://discordapp.com/developers/applications/me/
+const token = process.env.token;
+
+//Prefix for your bot, Can be changed to anything.
+const cmdprefix = "<";
 
 console.log("Discord.js Ready!");
 
 // Gets called when our bot is successfully logged in and connected
 bot.on('ready', () => {
     console.log('Connected To Discord!');
+    bot.user.setActivity("a blinking cursor.",{type : "WATCHING"})
 });
 
 stdin.addListener("data", function(d) {
@@ -22,6 +31,7 @@ stdin.addListener("data", function(d) {
     bot.channels.get("567547154005098499").send(d.toString().trim())
 });
 
+// Event to listen to messages sent to the server where the bot is located
 bot.on('message', message => {
     // So the bot doesn't reply to iteself
     if (message.author.bot) return;
@@ -29,4 +39,11 @@ bot.on('message', message => {
     if (message.content.startsWith(">")) {
         console.log("@"+message.author.username+" in #"+message.channel.name+": "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
     }
+    
+    if (!message.content.startsWith(cmdprefix)) return;
+    var cmd = message.content.substr(1).trim();
+    }
 });
+  
+
+bot.login(token);
