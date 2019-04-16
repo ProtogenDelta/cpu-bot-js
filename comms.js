@@ -13,7 +13,7 @@ const bot = new Discord.Client();
 const token = process.env.token;
 
 //Prefix for your bot, Can be changed to anything.
-const cmdprefix = "\\";
+const msgprefix = ":";
 
 console.log("Discord.js Ready!");
 
@@ -44,13 +44,9 @@ bot.on('message', message => {
     // So the bot doesn't reply to iteself
     if (message.author.bot) return;
     
-    if (message.content.startsWith(";")) {
+    if (message.content.startsWith(msgprefix)) {
         console.log("@"+message.author.username+" in #"+message.channel.name+":\n "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
     }
-    
-    if (!message.content.startsWith(cmdprefix)) return;
-    
-    var cmd = message.content.substr(1).trim();
 });
   
 
