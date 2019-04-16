@@ -27,8 +27,8 @@ stdin.addListener("data", function(d) {
     // note:  d is an object, and when converted to a string it will
     // end with a linefeed.  so we (rather crudely) account for that  
     // with toString() and then trim() 
-    console.log("you entered: [" + d.toString().trim() + "]");
     bot.channels.get("567547154005098499").send(d.toString().trim())
+    bot.channels.get("0").send(d.toString().trim())
 });
 
 // Event to listen to messages sent to the server where the bot is located
@@ -37,7 +37,7 @@ bot.on('message', message => {
     if (message.author.bot) return;
     
     if (message.content.startsWith(">")) {
-        console.log("@"+message.author.username+" in #"+message.channel.name+": "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
+        console.log("@"+message.author.username+" in #"+message.channel.id+": "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
     }
     
     if (!message.content.startsWith(cmdprefix)) return;
