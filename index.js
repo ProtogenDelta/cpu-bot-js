@@ -86,10 +86,7 @@ bot.on('message', message => {
         if (cmd.length > 5 && cmd.charAt(5) == " ") {
             var q = cmd.substr(5)
             var runccmd = 1
-        }else if(cmd.length > 5 && !cmd.charAt(5) == " ") {
-            message.channel.send("```Invalid Syntax, "+message.author.username+".```")
-            var runcmd = 0
-        }else{
+        } else {
             var q = "Please submit a vote."
             var runcmd = 1
         }
