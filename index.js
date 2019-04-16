@@ -88,6 +88,7 @@ bot.on('message', message => {
         var actype = cmd.substr(12).split(" ")[0]
         var accontent = cmd.substr(12) - actype
         bot.user.setActivity(accontent, {type : actype})
+        message.channel.send("Set "+actype+" status to "+accontent+".")
     }
 });
   
