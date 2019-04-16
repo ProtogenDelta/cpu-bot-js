@@ -28,7 +28,7 @@ stdin.addListener("data", function(d) {
     // end with a linefeed.  so we (rather crudely) account for that  
     // with toString() and then trim() 
     bot.channels.get("567547154005098499").send(d.toString().trim())
-    bot.channels.get("0").send(d.toString().trim())
+    bot.channels.get("567601788614868992").send(d.toString().trim())
 });
 
 // Event to listen to messages sent to the server where the bot is located
