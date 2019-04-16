@@ -37,6 +37,7 @@ stdin.addListener("data", function(d) {
         bot.channels.get("567601788614868992").send(incoming)
         bot.channels.get("567547154005098499").send(incoming)
     }
+    console.log("\n")
 });
 
 // Event to listen to messages sent to the server where the bot is located
@@ -45,7 +46,7 @@ bot.on('message', message => {
     if (message.author.bot) return;
     
     if (message.content.startsWith(msgprefix)) {
-        console.log("@"+message.author.username+" in #"+message.channel.name+":\n "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
+        console.log("@"+message.author.username+" in #"+message.channel.name+":\n "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]\n")
     }
 });
   
