@@ -96,17 +96,19 @@ bot.on('message', message => {
         }
     }
     
-    if (cmd.startsWith("polln ")) {
-        q = cmd.substr(5)
-        runcmd = 1
-    } else {
-            q = "Please submit a vote."
+    if (cmd.startsWith("npoll")) {
+        if (cmd.startsWith("npoll ")) {
+            q = cmd.substr(6)
             runcmd = 1
-    }
-    if (runcmd) {
-        message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("1️⃣").then(() => sentMessage.react("2️⃣")))
-    }else{
-        //do nothing
+        } else {
+                q = "Please submit a vote."
+                runcmd = 1
+        }
+        if (runcmd) {
+            message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("1️⃣").then(() => sentMessage.react("2️⃣")))
+        }else{
+            //do nothing
+        }
     }
 });
   
