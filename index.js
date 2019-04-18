@@ -97,19 +97,18 @@ bot.on('message', message => {
         }
     }
     
-        if (cmd.startsWith("polln ")) {
-            q = cmd.substr(5)
-            runcmd = 1
-        } else {
+    if (cmd.startsWith("polln ")) {
+        q = cmd.substr(5)
+        runcmd = 1
+    } else {
             q = "Please submit a vote."
             runcmd = 1
-        }
-        if (runcmd) {
-            message.channel.send("```"+q+"```").then(sentMessage => reactTo = sentMessage)
-            reactTo.react("1️⃣").then(() => reactTo.react("2️⃣"))
-        }else{
+    }
+    if (runcmd) {
+        message.channel.send("```"+q+"```").then(sentMessage => reactTo = sentMessage)
+        reactTo.react("1️⃣").then(() => reactTo.react("2️⃣"))
+    }else{
         //do nothing
-        }
     }
 });
   
