@@ -105,7 +105,7 @@ bot.on('message', message => {
                 runcmd = 1
         }
         if (runcmd) {
-            message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("1️⃣").then(() => sentMessage.react("2️⃣")))
+            message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("one").then(() => sentMessage.react("two")))
         }else{
             //do nothing
         }
