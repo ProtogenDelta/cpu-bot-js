@@ -31,14 +31,11 @@ stdin.addListener("data", function(d) {
     bot.channels.get("567547154005098499").send(d.toString().trim())
 });
 
-function thumbs(msgIn) {
-    msgIn.react("👍").then(() => msgIn.react("👎"))
-}
-
 // Event to listen to messages sent to the server where the bot is located
 bot.on('message', message => {
     var q
     var runcmd
+    var reactTo
     // So the bot doesn't reply to iteself
     if (message.author.bot) return;
     
@@ -50,7 +47,7 @@ bot.on('message', message => {
     var cmd = message.content.substr(1).trim();
     
     if (cmd === "help") { //help command
-        message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. \n Ping - Determine the bot response time. \n Say - Says anything you want! \n Poll - Opens a reactions poll.```")  
+        message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. \n Ping - Determine the bot response time. \n Say - Says anything you want! \n Poll - Opens a reactions poll. \n Polln - Poll command, but with numbers.```")  
      }
     
     if (cmd === "ping") { //ping command. get the bot response time in ms
@@ -93,7 +90,23 @@ bot.on('message', message => {
             runcmd = 1
         }
         if (runcmd) {
-        message.channel.send("```"+q+"```").then(sentMessage => thumbs(sentMessage))
+            message.channel.send("```"+q+"```").then(sentMessage => reactTo = sentMessage)
+            reactTo.react("👍").then(() => reactTo.react("👎"))
+        }else{
+        //do nothing
+        }
+    }
+    
+        if (cmd.startsWith("polln ")) {
+            q = cmd.substr(5)
+            runcmd = 1
+        } else {
+            q = "Please submit a vote."
+            runcmd = 1
+        }
+        if (runcmd) {
+            message.channel.send("```"+q+"```").then(sentMessage => reactTo = sentMessage)
+            reactTo.react("1️⃣").then(() => reactTo.react("2️⃣"))
         }else{
         //do nothing
         }
