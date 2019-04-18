@@ -90,8 +90,7 @@ bot.on('message', message => {
             runcmd = 1
         }
         if (runcmd) {
-            message.channel.send("```"+q+"```").then(sentMessage => reactTo = sentMessage)
-            reactTo.react("👍").then(() => reactTo.react("👎"))
+            message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("👍").then(() => sentMessage.react("👎")))
         }else{
         //do nothing
         }
@@ -105,8 +104,7 @@ bot.on('message', message => {
             runcmd = 1
     }
     if (runcmd) {
-        message.channel.send("```"+q+"```").then(sentMessage => reactTo = sentMessage)
-        reactTo.react("1️⃣").then(() => reactTo.react("2️⃣"))
+        message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("1️⃣").then(() => sentMessage.react("2️⃣")))
     }else{
         //do nothing
     }
