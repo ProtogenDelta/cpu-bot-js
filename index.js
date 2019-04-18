@@ -17,6 +17,10 @@ const cmdprefix = "\\";
 
 console.log("Discord.js Ready!");
 
+const emojiCharacters = require('./emojiCharacters');
+
+console.log("emojiCharacters.js ready!")
+
 // Gets called when our bot is successfully logged in and connected
 bot.on('ready', () => {
     console.log('Connected To Discord!');
@@ -105,7 +109,7 @@ bot.on('message', message => {
                 runcmd = 1
         }
         if (runcmd) {
-            message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react(":one:").then(() => sentMessage.react(":two:")))
+            message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react(emojiCharacters[1]).then(() => sentMessage.react(emojiCharacters[2])))
         }else{
             //do nothing
         }
