@@ -36,7 +36,6 @@ stdin.addListener("data", function(d) {
 
 // Event to listen to messages sent to the server where the bot is located
 bot.on('message', message => {
-    var q
     var runcmd
     var reactTo
     // So the bot doesn't reply to iteself
@@ -54,8 +53,10 @@ bot.on('message', message => {
      }
     
     if(cmd.startsWith("beacon")) {
-        console.log("ATTENTION! Beacon activated in #"+message.channel.name+" of server "+message.guild.name+" by "+message.author.username)
-        
+        var q = cmd.substr(7)
+        console.log("ATTENTION! Beacon activated in #"+message.channel.name+" of server "+message.guild.name+" by @"+message.author.username)
+        if(q) {console.log("With Message: "+q)}
+        q = ""
     }
     
     if (cmd === "ping") { //ping command. get the bot response time in ms
@@ -90,6 +91,7 @@ bot.on('message', message => {
     }
 
     if (cmd.startsWith("poll")) { //Poll Command, Returns an open reaction poll.
+        var q
         if (cmd.startsWith("poll ")) {
             q = cmd.substr(cmdprefix.length+4)
             runcmd = 1
@@ -105,6 +107,7 @@ bot.on('message', message => {
     }
     
     if (cmd.startsWith("npoll")) {
+        var q
         if (cmd.startsWith("npoll ")) {
             q = cmd.substr(cmdprefix.length+5)
             runcmd = 1
