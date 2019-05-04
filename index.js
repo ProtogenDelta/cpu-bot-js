@@ -13,7 +13,7 @@ const bot = new Discord.Client();
 const token = process.env.token;
 
 //Prefix for your bot, Can be changed to anything.
-const cmdprefix = ";";
+const cmdprefix = "c!";
 console.log("Discord.js Ready!");
 
 const emojiCharacters = require('./emojiCharacters');
@@ -35,93 +35,162 @@ stdin.addListener("data", function(d) {
 });
 
 // Event to listen to messages sent to the server where the bot is located
+var commands = {
+    help: {
+		description: "You just typed this."
+		run: function(m) {
+			m.channel.send("``` " + makeHelp() + "```")
+		}
+    },
+    
+	beacon: {
+		run: function(m, t) {
+			console.log("ATTENTION! Beacon activated in #"+m.channel.name+" of server "+m.guild.name+" by @"+m.author.username)
+			if(t) {
+				console.log("With Message: " + t)
+			}
+		}
+    },
+
+    ping: {
+		description: "Determine the bot response time.",
+		run: function(m) { 
+			m.channel.send("```Pong! The bot's ping time is "+Math.round(bot.ping)+"ms.```")
+		}
+    },
+    
+    hello: {
+		description: "Say Hello!",
+		run: function(m) {
+			m.channel.send("```Hello!```");
+		}
+    },
+    
+    "8ball": {
+		description: "Make a decision",
+		items: ["Yes", "No", "Maybe", "Definitely", "Probably", "Probably Not", "Try Again"],
+		run: function(m) {
+			var item = this.items[Math.floor(Math.random() * this.items.length)];
+			m.channel.send("```"+item+"```");
+		}
+    },
+
+	flip: {
+		description: "Flip a coin",
+		headstails: ["Heads", "Tails"],
+		run: function(m) {
+			var ht = this.headstails[Math.floor(Math.random() * this.headstails.length)];
+			m.channel.send("```"+ht+"```");
+		}
+    },
+
+    howsmart: {
+		desciption: "Determines how smart you are.",
+		function(m) {
+			var name = (m.mentions.users.first() || m.author).username;
+			m.channel.send("```" + name + " is "+(Math.round(Math.random()*100)) +"% smart.```");
+		}
+    },
+    
+	say: {
+		description: "Says anything you want!",
+		run: function(m, t) {
+			m.channel.send("```" + t + "```");
+		}
+	},
+    
+    poll: {
+		description: "Opens a reaction poll.",
+		run: function(m, t) {
+			t = t||"Please submit a vote."
+			m.channel.send("```" + t + "```")
+				.then(s => s.react("👍").then(_ => s.react("👎")))
+		}
+    },
+    
+    npoll: {
+		description: "Poll command, but with numbers.", 
+		run: function(m, t) {
+			t = t || "Please submit a vote."
+			m.channel.send("```" + t + "```")
+				.then(s => s.react(emojiCharacters[1]).then(() => s.react(emojiCharacters[2])))
+		}
+    },
+
+	toggle: {
+		state: false,
+		run: function(m) {
+			if (state) {
+				for (n in othercommands)
+					commands[n] = undefined;
+			} else {
+				for (n in othercommands)
+					commands[n] = othercommands[n]
+			}
+			state = !state
+		}
+	},
+	
+	disable: function(m, t) {
+		var cmd = commands[t]
+		if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
+			cmd.disabled = true;
+		}
+	},
+	
+	enable: function(m, t) {
+		var cmd = commands[t]
+		if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
+			cmd.disabled = false;
+		}
+	}
+}
+
+othercommands = {
+	boo: {
+		description: "Says boo.",
+		run: function(m) {
+			m.channel.send("You asked for it: BOO!")
+		}
+	}
+}
+
+function makeHelp() {
+    var res = "Help:\n    Command prefix: " + cmdprefix 
+    for (n in commands) {
+		var cmd = commands[n]
+		if (typeof(cmd) === "object" && !!cmd.description) {
+            res += "\n    " + n + " - " + cmd.description
+        }
+    }
+    return res
+}
+
 bot.on('message', message => {
-    var runcmd
-    var reactTo
-    // So the bot doesn't reply to iteself
     if (message.author.bot) return;
     
     if (message.content.startsWith(":")) {
         console.log("@"+message.author.username+" in #"+message.channel.name+": "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
     }
     
-    if (!message.content.startsWith(cmdprefix)) return;
+    if (!message.content.toLowerCase().startsWith(cmdprefix)) return;
     var cmd = message.content.substr(cmdprefix.length).trim();
     
-    if (cmd === "help") { //help command
-        message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. \n Ping - Determine the bot response time. \n Say - Says anything you want! \n Poll - Opens a reactions poll. \n Npoll - Poll command, but with numbers.```")  
-     }
+    // Split command into name and parameters
+    var parts = cmd.match(/^([^ ]+)(?: (.+))?$/)
+    var cmdName = parts[1].toLowerCase()
+    var cmdParams = parts[2]
     
-    if(cmd.startsWith("beacon")) {
-        var q = cmd.substr(7)
-        console.log("ATTENTION! Beacon activated in #"+message.channel.name+" of server "+message.guild.name+" by @"+message.author.username)
-        if(q) {console.log("With Message: "+q)}
-        q = ""
-    }
-    
-    if (cmd === "ping") { //ping command. get the bot response time in ms
-        message.channel.send("```Pong! The bot's ping time is "+Math.round(bot.ping)+"ms.```");
-    }
-    
-    if (cmd === "hello") {
-        message.channel.send("```Hello!```");
-    }
-    
-    if (cmd.startsWith("8ball")) { //8-ball command. Self explanatory.
-        var items = Array("Yes","No","Maybe","Definitely","Probably","Probably Not","Try Again");
-        var item = items[Math.floor(Math.random() * items.length)];
-        message.channel.send("```"+item+"```");
-    }
-
-    if (cmd === "flip") {//Coin flip command. returns "Heads" or "Tails"
-        var headstails = ["Heads","Tails"];
-        var ht = headstails[Math.floor(Math.random() * headstails.length)];
-        message.channel.send("```"+ht+"```");
-    }
-
-    if (cmd.startsWith("howsmart")) { //howsmart command. randomly generates a number up to 100. mention a user to show their score.
-        var parts = cmd.split(" ");
-        var name = parts.length > 1 ? (message.mentions.users.first()).username : message.author.username;
-        message.channel.send("```"+name+" is "+(Math.floor(Math.random()*100)) +"% smart.```");
-    }
-    
-    if (cmd.startsWith("say ")) {
-        var tosay = cmd.substr(4);
-        message.channel.send("```"+tosay+"```");
-    }
-
-    if (cmd.startsWith("poll")) { //Poll Command, Returns an open reaction poll.
-        var q
-        if (cmd.startsWith("poll ")) {
-            q = cmd.substr(cmdprefix.length+4)
-            runcmd = 1
-        } else {
-            q = "Please submit a vote."
-            runcmd = 1
-        }
-        if (runcmd) {
-            message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react("👍").then(() => sentMessage.react("👎")))
-        }else{
-        //do nothing
-        }
-    }
-    
-    if (cmd.startsWith("npoll")) {
-        var q
-        if (cmd.startsWith("npoll ")) {
-            q = cmd.substr(cmdprefix.length+5)
-            runcmd = 1
-        } else {
-                q = "Please submit a vote."
-                runcmd = 1
-        }
-        if (runcmd) {
-            message.channel.send("```"+q+"```").then(sentMessage => sentMessage.react(emojiCharacters[1]).then(() => sentMessage.react(emojiCharacters[2])))
-        }else{
-            //do nothing
-        }
-    }
-});
-  
+    // Find command in commands table
+    var cmdFunc = commands[cmdName]
+    if (typeof(cmdFunc) === "function") {
+        cmdFunc(message, cmdParams)
+	} else if (typeof(cmdFunc) === "object" && typeof(cmdFunc.run) === "function" && !cmdFunc.disabled) {
+		cmdFunc.run(message, cmdParams);
+	} else {
+        message.channel.send("```Unknown command: '" + cmdName + "'```");
+	}
+})
+ 
 
 bot.login(token);
