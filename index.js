@@ -48,7 +48,7 @@ bot.on('message', message => {
     }
     
     if (!message.content.startsWith(cmdprefix)) return;
-    var cmd = message.content.substr(1).trim();
+    var cmd = message.content.substr(cmdprefix.length).trim();
     
     if (cmd === "help") { //help command
         message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. \n Ping - Determine the bot response time. \n Say - Says anything you want! \n Poll - Opens a reactions poll. \n Npoll - Poll command, but with numbers.```")  
@@ -87,7 +87,7 @@ bot.on('message', message => {
 
     if (cmd.startsWith("poll")) { //Poll Command, Returns an open reaction poll.
         if (cmd.startsWith("poll ")) {
-            q = cmd.substr(5)
+            q = cmd.substr(cmdprefix.length+4)
             runcmd = 1
         } else {
             q = "Please submit a vote."
@@ -102,7 +102,7 @@ bot.on('message', message => {
     
     if (cmd.startsWith("npoll")) {
         if (cmd.startsWith("npoll ")) {
-            q = cmd.substr(6)
+            q = cmd.substr(cmdprefix.length+5)
             runcmd = 1
         } else {
                 q = "Please submit a vote."
