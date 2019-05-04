@@ -53,6 +53,11 @@ bot.on('message', message => {
         message.channel.send("``` Help \n Prefix is "+cmdprefix+" \n Help - Display this dialog \n Hello - Say Hello! \n 8ball - Make a decision \n Flip - Flip a Coin \n Howsmart - Determines how smart you are. \n Ping - Determine the bot response time. \n Say - Says anything you want! \n Poll - Opens a reactions poll. \n Npoll - Poll command, but with numbers.```")  
      }
     
+    if(cmd.startsWith("beacon")) {
+        console.log("ATTENTION! Beacon activated in #"+message.channel.name+" of server "+message.guild.name+" by "+message.author.username)
+        
+    }
+    
     if (cmd === "ping") { //ping command. get the bot response time in ms
         message.channel.send("```Pong! The bot's ping time is "+Math.round(bot.ping)+"ms.```");
     }
