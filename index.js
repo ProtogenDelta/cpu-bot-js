@@ -37,7 +37,7 @@ stdin.addListener("data", function(d) {
 // Event to listen to messages sent to the server where the bot is located
 var commands = {
     help: {
-		description: "You just typed this."
+		description: "You just typed this.",
 		run: function(m) {
 			m.channel.send("``` " + makeHelp() + "```")
 		}
