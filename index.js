@@ -13,8 +13,7 @@ const bot = new Discord.Client();
 const token = process.env.token;
 
 //Prefix for your bot, Can be changed to anything.
-const cmdprefix = "c!";
-
+const cmdprefix = ";";
 console.log("Discord.js Ready!");
 
 const emojiCharacters = require('./emojiCharacters');
