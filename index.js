@@ -131,17 +131,21 @@ var commands = {
 		}
 	},
 	
-	disable: function(m, t) {
+	unload: function(m, t) {
 		var cmd = commands[t]
-		if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
-			cmd.disabled = true;
+		if (m.author.id == process.env.adminid) {
+			if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
+				cmd.disabled = true;
+			}
 		}
 	},
 	
-	enable: function(m, t) {
+	load: function(m, t) {
 		var cmd = commands[t]
-		if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
-			cmd.disabled = false;
+		if (m.author.id == process.env.adminid) {	
+			if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
+				cmd.disabled = false;
+			}
 		}
 	}
 }
