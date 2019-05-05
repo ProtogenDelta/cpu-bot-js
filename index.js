@@ -136,7 +136,7 @@ var commands = {
 		if (m.author.id == process.env.adminid) {
 			if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
 				cmd.disabled = true;
-				m.author.send("Successfully unloaded command '" + cmd + "'")
+				m.author.send("Successfully unloaded command '" + t + "'")
 			}
 		}
 	},
@@ -146,7 +146,7 @@ var commands = {
 		if (m.author.id == process.env.adminid) {	
 			if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
 				cmd.disabled = false;
-				m.author.send("Successfully loaded command '" + cmd + "'")
+				m.author.send("Successfully loaded command '" + t + "'")
 			}
 		}
 	}
