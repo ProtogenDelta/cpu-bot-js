@@ -137,6 +137,8 @@ var commands = {
 			if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
 				cmd.disabled = true;
 				m.author.send("Successfully unloaded command '" + t + "'")
+			} else {
+			m.author.send("Insufficient permissions to use command 'load'")
 			}
 		}
 	},
@@ -148,6 +150,8 @@ var commands = {
 				cmd.disabled = false;
 				m.author.send("Successfully loaded command '" + t + "'")
 			}
+		} else {
+			m.author.send("Insufficient permissions to use command 'load'")
 		}
 	}
 }
