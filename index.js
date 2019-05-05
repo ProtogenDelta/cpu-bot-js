@@ -104,7 +104,7 @@ var commands = {
 		run: function(m, t) {
 			t = t||"Please submit a vote."
 			m.channel.send("```" + t + "```")
-				.then(s => s.react("👍").then(_ => s.react("👎")))
+				.then(s => s.react("ðŸ‘").then(_ => s.react("ðŸ‘Ž")))
 		}
     },
     
@@ -120,14 +120,14 @@ var commands = {
 	toggle: {
 		state: false,
 		run: function(m) {
-			if (state) {
+			if (this.state) {
 				for (n in othercommands)
 					commands[n] = undefined;
 			} else {
 				for (n in othercommands)
 					commands[n] = othercommands[n]
 			}
-			state = !state
+			this.state = !this.state
 		}
 	},
 	
@@ -191,6 +191,6 @@ bot.on('message', message => {
         message.channel.send("```Unknown command: '" + cmdName + "'```");
 	}
 })
- 
+  
 
 bot.login(token);
