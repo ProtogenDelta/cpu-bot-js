@@ -10,5 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.4.2"
+    "forbes-quote": "^1.0.0"
   }
 }
