@@ -156,6 +156,7 @@ var commands = {
 			getQuote().then((quote) => {m.channel.send("```\"" + quote.quote + "\"\n  -" + quote.author + "```");})
 		}
 	}
+}
 	
 othercommands = {
 	dm: {
