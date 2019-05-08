@@ -8,5 +8,8 @@
 CPU bot is a simple discord bot made in Javascript (node.js)<br/>
 Inspired by Command Line type systems like <span title="Microsoft Disk Operating System"><b>MS-DOS.</b></span><br/>
 </p>
+</div>
 
+<div id="footer">
 <small>Bot Powered By <a href="https://www.heroku.com/">Heroku</a></small>
+</div>

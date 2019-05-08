@@ -6,6 +6,9 @@ console.log("Console Ready!");
 // Import the discord.js module
 const Discord = require('discord.js');
 
+//Import the Forbes Quote API module
+const getQuote = require('forbes-quote');
+
 // Create an instance of Discord that we will use to control the bot
 const bot = new Discord.Client();
 
@@ -26,24 +29,16 @@ bot.on('ready', () => {
     bot.user.setActivity("a blinking cursor.",{type : "WATCHING"})
 });
 
-stdin.addListener("data", function(d) {
-    // note:  d is an object, and when converted to a string it will
-    // end with a linefeed.  so we (rather crudely) account for that  
-    // with toString() and then trim() 
-    console.log("you entered: [" + d.toString().trim() + "]");
-    bot.channels.get("567547154005098499").send(d.toString().trim())
-});
-
 // Event to listen to messages sent to the server where the bot is located
 var commands = {
-    help: {
-		description: "You just typed this.",
+    "help": {
+		description: "summons this dialog.",
 		run: function(m) {
 			m.channel.send("``` " + makeHelp() + "```")
 		}
     },
     
-	beacon: {
+	"beacon": {
 		run: function(m, t) {
 			console.log("ATTENTION! Beacon activated in #"+m.channel.name+" of server "+m.guild.name+" by @"+m.author.username)
 			if(t) {
@@ -52,14 +47,14 @@ var commands = {
 		}
     },
 
-    ping: {
+    "ping": {
 		description: "Determine the bot response time.",
 		run: function(m) { 
 			m.channel.send("```Pong! The bot's ping time is "+Math.round(bot.ping)+"ms.```")
 		}
     },
     
-    hello: {
+    "hello": {
 		description: "Say Hello!",
 		run: function(m) {
 			m.channel.send("```Hello!```");
@@ -68,23 +63,23 @@ var commands = {
     
     "8ball": {
 		description: "Make a decision",
-		items: ["Yes", "No", "Maybe", "Definitely", "Probably", "Probably Not", "Try Again"],
+		options: ["Yes", "No", "Maybe", "Definitely", "Probably", "Probably Not", "Try Again"],
 		run: function(m) {
-			var item = this.items[Math.floor(Math.random() * this.items.length)];
+			var item = this.options[Math.round(Math.random() * this.options.length)];
 			m.channel.send("```"+item+"```");
 		}
     },
 
-	flip: {
+	"flip": {
 		description: "Flip a coin",
-		headstails: ["Heads", "Tails"],
+		options: ["Heads", "Tails"],
 		run: function(m) {
-			var ht = this.headstails[Math.floor(Math.random() * this.headstails.length)];
+			var ht = this.options[Math.round(Math.random() * this.options.length)];
 			m.channel.send("```"+ht+"```");
 		}
     },
 
-    howsmart: {
+    "howsmart": {
 		desciption: "Determines how smart you are.",
 		function(m) {
 			var name = (m.mentions.users.first() || m.author).username;
@@ -92,23 +87,23 @@ var commands = {
 		}
     },
     
-	say: {
+	"say": {
 		description: "Says anything you want!",
 		run: function(m, t) {
 			m.channel.send("```" + t + "```");
 		}
 	},
     
-    poll: {
+    "poll": {
 		description: "Opens a reaction poll.",
 		run: function(m, t) {
 			t = t||"Please submit a vote."
 			m.channel.send("```" + t + "```")
-				.then(s => s.react("ðŸ‘").then(_ => s.react("ðŸ‘Ž")))
+				.then(s => s.react("👍").then(_ => s.react("👎")))
 		}
     },
     
-    npoll: {
+    "npoll": {
 		description: "Poll command, but with numbers.", 
 		run: function(m, t) {
 			t = t || "Please submit a vote."
@@ -117,7 +112,7 @@ var commands = {
 		}
     },
 
-	toggle: {
+	"toggle": {
 		state: false,
 		run: function(m) {
 			if (this.state) {
@@ -131,7 +126,7 @@ var commands = {
 		}
 	},
 	
-	unload: function(m, t) {
+	"unload": function(m, t) {
 		var cmd = commands[t]
 		if (m.author.id == process.env.adminid) {
 			if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
@@ -143,7 +138,7 @@ var commands = {
 		}
 	},
 	
-	load: function(m, t) {
+	"load": function(m, t) {
 		var cmd = commands[t]
 		if (m.author.id == process.env.adminid) {	
 			if (typeof(cmd) === "object" && typeof(cmd.run) === "function") {
@@ -153,24 +148,34 @@ var commands = {
 		} else {
 			m.author.send("Insufficient permissions to use command 'load'")
 		}
-	}
-}
-
-othercommands = {
-	boo: {
-		description: "Says boo.",
+	},
+	
+	"quote": {
+		description: "Get the quote of the day."
 		run: function(m) {
-			m.channel.send("You asked for it: BOO!")
+			getQuote().then((quote) => {m.channel.send("```\"" + quote.quote + "\"\n  -" + quote.author + "```");})
+		}
+	}
+	
+othercommands = {
+	dm: {
+		description: "DMs you.",
+		run: function(m, t) {
+			if (!!t) {
+				m.author.send("```" + t + "```")
+			} else {
+				m.author.send("```This is a DM from the c!dm command.```")
+			}
 		}
 	}
 }
 
 function makeHelp() {
-    var res = "Help:\n    Command prefix: " + cmdprefix 
+    var res = "Help:\n  Command prefix: ``" + cmdprefix + "``"
     for (n in commands) {
 		var cmd = commands[n]
 		if (typeof(cmd) === "object" && !!cmd.description) {
-            res += "\n    " + n + " - " + cmd.description
+            res += "\n  " + n + " - " + cmd.description
         }
     }
     return res
@@ -179,10 +184,12 @@ function makeHelp() {
 bot.on('message', message => {
     if (message.author.bot) return;
     
+	// Log messages with the logging prefix
     if (message.content.startsWith(":")) {
         console.log("@"+message.author.username+" in #"+message.channel.name+": "+message.content.substr(1)+" ["+Math.round(bot.ping)+"ms]")
     }
     
+	// Detect the command prefix
     if (!message.content.toLowerCase().startsWith(cmdprefix)) return;
     var cmd = message.content.substr(cmdprefix.length).trim();
     
@@ -197,7 +204,9 @@ bot.on('message', message => {
         cmdFunc(message, cmdParams)
 	} else if (typeof(cmdFunc) === "object" && typeof(cmdFunc.run) === "function" && !cmdFunc.disabled) {
 		cmdFunc.run(message, cmdParams);
-	} else {
+	} else if (cmdFunc.disabled) {
+		message.channel.send("```Command '" + cmdName + "' is disabled.");
+	} else  {
         message.channel.send("```Unknown command: '" + cmdName + "'```");
 	}
 })
