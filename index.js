@@ -153,7 +153,7 @@ var commands = {
 	"quote": {
 		description: "Get the quote of the day.",
 		run: function(m) {
-			getQuote().then((quote) => {m.channel.send("```\"" + quote.quote + "\"\n \n  -" + quote.author + "\n ---------- \n Quotes powered by Forbes Quotes. \n use " + cmdprefix + "forbes for more info.```");})
+			getQuote().then((quote) => {m.channel.send("```\"" + quote.quote + "\"\n \n  -" + quote.author + "\n \n --------------- \n Quotes powered by Forbes Quotes. \n use " + cmdprefix + "forbes for more info.```");})
 		}
 	},
 	
