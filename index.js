@@ -210,7 +210,7 @@ bot.on('message', message => {
 	} else if (typeof(cmdFunc) === "object" && typeof(cmdFunc.run) === "function" && !cmdFunc.disabled) {
 		cmdFunc.run(message, cmdParams);
 	} else if (cmdFunc.disabled) {
-		message.channel.send("```Command '" + cmdName + "' is disabled.");
+		message.channel.send("```Command '" + cmdName + "' is disabled.```");
 	} else  {
         message.channel.send("```Unknown command: '" + cmdName + "'```");
 	}
