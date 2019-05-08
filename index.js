@@ -191,12 +191,12 @@ bot.on('message', message => {
     }
     
 	// Detect the command prefix
-    if (!message.content.toLowerCase().startsWith(cmdprefix)) return;
+    if (!message.content.substr(cmdprefix.length).toLowerCase().startsWith(cmdprefix)) return;
     var cmd = message.content.substr(cmdprefix.length).trim();
     
     // Split command into name and parameters
     var parts = cmd.match(/^([^ ]+)(?: (.+))?$/)
-    var cmdName = parts[1].toLowerCase()
+    var cmdName = parts[1]
     var cmdParams = parts[2]
     
     // Find command in commands table
