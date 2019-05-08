@@ -158,7 +158,7 @@ var commands = {
 	},
 	
 	"forbes": function(m) {
-		m.authour.send("https://www.forbes.com/quotes/")	
+		m.author.send("https://www.forbes.com/quotes/")	
 	}
 }
 	
